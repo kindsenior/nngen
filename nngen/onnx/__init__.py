@@ -11,6 +11,7 @@ from . import util
 from . import basic
 from . import exp
 from . import reduce
+from . import matmul
 from . import conv
 from . import gemm
 from . import pool
@@ -44,6 +45,7 @@ func_map = {
     'ReduceMin': reduce.ReduceMin,
     'ArgMax': reduce.ArgMax,
     'ArgMin': reduce.ArgMin,
+    'MatMul' : matmul.MatMul,
     'Conv': conv.Conv,
     'Gemm': gemm.Gemm,
     'AveragePool': pool.AveragePool,
