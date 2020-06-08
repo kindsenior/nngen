@@ -119,6 +119,18 @@ def scaled_add(visitor, node):
     node.a_scale = int(q_a_scale_value)
     node.b_scale = int(q_b_scale_value)
 
+    # <<< need ?
+    # ipdb.set_trace(context=10)
+    b_value = b.value
+    if isinstance(b_value, (tuple, list)): # need ?
+        b_value = np.array(b_value)
+
+    q_b_value = util.quantize_linear_by_scale_factor(b_value, b.dtype.width, q_b_scale_value) # correnct b scale ?
+    b.set_value(q_b_value)
+    b.scale_factor = q_b_scale_value
+    # ipdb.set_trace(context=10)
+    # need ? >>>
+
     init_shamt = max(max(math.ceil(math.log(np.abs(q_a_scale_value) * 1.0, 2)),
                          math.ceil(math.log(np.abs(q_b_scale_value) * 1.0, 2))), 0)
     q_shamt = find_optimal_shamt_scaled_add(visitor, node, q_a_scale_value, q_b_scale_value,
